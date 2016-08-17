@@ -1,32 +1,44 @@
-var express = require("express");
-var path = require("path");
-var bodyParser = require("body-parser");
-var mongodb = require("mongodb");
-var ObjectID = mongodb.ObjectID;
+// Babel ES6/JSX Compiler
+require('babel-register');
 
-var BLOOD_TEST_COLLECTION = "blood_test";
+var path = require('path');
+
+var express = require('express');
+var swig  = require('swig');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+
+var React = require('react');
+var ReactDOM = require('react-dom/server');
+var Router = require('react-router');
+
+var routes = require('./app/routes');
+
 
 var app = express();
-app.use(express.static(__dirname + "/public"));
+
+app.set('port', process.env.PORT || 3000);
+app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db;
-
-// Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-
-  // Save database object from the callback for reuse.
-  db = database;
-  console.log("Database connection ready");
-
-  // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
-    console.log("App now running on port", port);
+app.use(function(req, res) {
+  Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
+    if (err) {
+      res.status(500).send(err.message)
+    } else if (redirectLocation) {
+      res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
+    } else if (renderProps) {
+      var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
+      var page = swig.renderFile('views/index.html', { html: html });
+      res.status(200).send(page);
+    } else {
+      res.status(404).send('Page Not Found')
+    }
   });
+});
+
+app.listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + app.get('port'));
 });
