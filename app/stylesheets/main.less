@@ -4,6 +4,32 @@
 
 @font-family-base: 'Avenir', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
+/*****************************
+********** GENERAL ***********
+******************************/
+
+html, body {
+  height: 100%;
+}
+
+.red {
+  color: rgb(231, 91, 91);
+}
+
+.content {
+  margin-left: 300px;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/*****************************
+********** SIDEBAR ***********
+******************************/
+
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
@@ -84,10 +110,84 @@
   font-size: 0.8em;
 }
 
-.red {
-  color: rgb(231, 91, 91);
+/* Effect 21: borders slight translate */
+.cl-effect-21 a {
+	padding: 10px;
+	color: #fff;
+	font-weight: 200;
+	text-shadow: none;
+	-webkit-transition: color 0.3s;
+	-moz-transition: color 0.3s;
+	transition: color 0.3s;
+  text-decoration: none;
 }
 
-.content {
-  margin-left: 300px;
+.cl-effect-21 a::before,
+.cl-effect-21 a::after {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: #57369c;
+	content: '';
+	opacity: 0;
+  margin: -5px;
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+	-moz-transition: opacity 0.3s, -moz-transform 0.3s;
+	transition: opacity 0.3s, transform 0.3s;
+	-webkit-transform: translateY(-10px);
+	-moz-transform: translateY(-10px);
+	transform: translateY(-10px);
+}
+
+.cl-effect-21 a::before {
+	top: 0;
+	-webkit-transform: translateY(-10px);
+	-moz-transform: translateY(-10px);
+	transform: translateY(-10px);
+}
+
+.cl-effect-21 a::after {
+	bottom: 0;
+	-webkit-transform: translateY(10px);
+	-moz-transform: translateY(10px);
+	transform: translateY(10px);
+}
+
+.cl-effect-21 a:hover,
+.cl-effect-21 a:focus {
+	color: #ddd;
+}
+
+.cl-effect-21 a:hover::before,
+.cl-effect-21 a:focus::before,
+.cl-effect-21 a:hover::after,
+.cl-effect-21 a:focus::after {
+	opacity: 1;
+	-webkit-transform: translateY(0px);
+	-moz-transform: translateY(0px);
+	transform: translateY(0px);
+}
+
+.cl-effect-21 {
+  margin: 35px 0;
+}
+
+/*****************************
+************ HOME ************
+******************************/
+
+.home {
+  float: none;
+  text-align: center;
+  margin-top: 25%;
+}
+
+.home > h1 {
+  font-weight: 900;
+}
+
+.home > p {
+  margin-top: 10%;
+  font-weight: 100;
 }
