@@ -7,6 +7,9 @@ export default class LineChart extends React.Component {
 		super(props);
 		this.state = {
 			config: {
+				title: {
+					text: ""
+				},
 				colors: ['#8085e9', '#FF9800', '#9CCC65', '#29B6F6', '#E91E63', '#FFEB3B', '#26A69A', '#FF5722', '#388E3C', '#0277BD', '#F06292', '#7B1FA2', '#FFD54F', '#8D6E63'],
 				xAxis: {
 					categories: []
