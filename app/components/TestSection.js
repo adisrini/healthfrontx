@@ -1,6 +1,5 @@
 import React from 'react';
 import SelectBox from 'react-select-box';
-import DataMenu from "./DataMenu";
 import LineChart from './LineChart';
 
 var option = React.createElement.bind(null,'option');
@@ -31,7 +30,7 @@ export default class TestSection extends React.Component {
             </SelectBox>
           </div>
         </div>
-        <LineChart />
+        <LineChart title={this.props.title} features={this.state.features} data={this.props.data}/>
       </div>
     )
   }
