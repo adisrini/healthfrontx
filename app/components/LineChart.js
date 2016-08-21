@@ -1,13 +1,6 @@
 import React from 'react';
 import ReactHighcharts from "react-highcharts";
 
-// 'Jan', 'Feb', 'Mar'
-
-// {
-// 	name: 'Time',
-// 	data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 295.6, 454.4]
-// }
-
 export default class LineChart extends React.Component {
 
 	constructor(props) {
@@ -54,10 +47,28 @@ export default class LineChart extends React.Component {
 						}
 				}
 		}
-		this.state.config.series = this.state.series;
 	}
 
   render() {
+		for(var i = 0; i < this.state.series.length; i++) {
+			var entry = this.state.series[i];
+			var index = -1;
+			for(var j = 0; j < this.state.config.series.length; j++) {
+				var configEntry = this.state.config.series[j];
+				if(configEntry.name === String(entry.name)) {
+					index = j;
+				}
+			}
+			if(this.props.features.indexOf(String(entry.name)) == -1) {	// if not found in features, remove it from config if its there
+				if(index != -1) {
+					this.state.config.series.splice(index, 1);
+				}
+			} else {
+				if(index == -1) {																				 // if it is in features and not in config, add it to config
+				this.state.config.series.push(entry);
+				}
+			}
+		}
     return (
       <div className="row">
         <br/>
