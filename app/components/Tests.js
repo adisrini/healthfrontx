@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactHighcharts from "react-highcharts";
 import Title from './Title';
 import TestSection from './TestSection';
 import data from '../../public/data/blood-tests.json';
+
 
 var groups = {};
 

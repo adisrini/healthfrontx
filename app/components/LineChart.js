@@ -30,21 +30,32 @@ export default class LineChart extends React.Component {
 								for(var feature in report.investigation[String(group)][0]) {
 										var contains = false;
 										var entry = {};
+										// var error = {};
 										for(var j = 0; j < this.state.series.length; j++) {
 												var ser = this.state.series[j];
 												if(ser.name === String(feature)) {
 														contains = true;
 														entry = ser;
 												}
+												// if(ser.name === (String(feature) + " error")) {
+												// 		error = ser;
+												// }
 										}
 										if(contains) {
 												entry.data.push(report.investigation[String(group)][0][String(feature)].value);
+												// error.data.push([report.investigation[String(group)][0][String(feature)].min, report.investigation[String(group)][0][String(feature)].max])
 										} else {
 												entry = {
 													name: String(feature),
 													data: [report.investigation[String(group)][0][String(feature)].value]
 												}
+												// error = {
+												// 	name: (String(feature) + " error"),
+												// 	type: 'errorbar',
+												// 	data: [[report.investigation[String(group)][0][String(feature)].min, report.investigation[String(group)][0][String(feature)].max]]
+												// }
 												this.state.series.push(entry);
+												// this.state.series.push(error);
 										}
 								}
 						}
@@ -53,24 +64,26 @@ export default class LineChart extends React.Component {
 	}
 
   render() {
-		for(var i = 0; i < this.state.series.length; i++) {
-			var entry = this.state.series[i];
-			var index = -1;
-			for(var j = 0; j < this.state.config.series.length; j++) {
-				var configEntry = this.state.config.series[j];
-				if(configEntry.name === String(entry.name)) {
-					index = j;
+		for(var i = 0; i < this.state.series.length; i++) { 	// += 2
+				var entry = this.state.series[i];
+				// var error = this.state.series[i+1];
+				var index = -1;
+				for(var j = 0; j < this.state.config.series.length; j++) {	// += 2
+						var configEntry = this.state.config.series[j];
+						if(configEntry.name === String(entry.name)) {
+								index = j;
+						}
 				}
-			}
-			if(this.props.features.indexOf(String(entry.name)) == -1) {	// if not found in features, remove it from config if its there
-				if(index != -1) {
-					this.state.config.series.splice(index, 1);
+				if(this.props.features.indexOf(String(entry.name)) == -1) {	// if not found in features, remove it from config if its there
+						if(index != -1) {
+								this.state.config.series.splice(index, 1);	// splice 2
+						}
+				} else {
+						if(index == -1) {																				 // if it is in features and not in config, add it to config
+								this.state.config.series.push(entry);
+								// this.state.config.series.push(error);
+						}
 				}
-			} else {
-				if(index == -1) {																				 // if it is in features and not in config, add it to config
-				this.state.config.series.push(entry);
-				}
-			}
 		}
     return (
       <div className="row">
