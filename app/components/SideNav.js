@@ -3,16 +3,6 @@ import BM from 'react-burger-menu';
 
 var Menu = BM.slide;
 
-// <nav className="cl-effect-21" id="cl-effect-21">
-//   <a id="status" className="menu-item" href="/status"><i className="fa fa-fw fa-heart-o"></i>status</a>
-// </nav>
-// <nav className="cl-effect-21" id="cl-effect-21">
-//   <a id="activity" className="menu-item" href="/activity"><i className="fa fa-fw fa-child"></i>activity</a>
-// </nav>
-// <nav className="cl-effect-21" id="cl-effect-21">
-//   <a id="sleep" className="menu-item" href="/sleep"><i className="fa fa-fw fa-moon-o"></i>sleep</a>
-// </nav>
-
 export default class SideNav extends React.Component {
 
   render() {
