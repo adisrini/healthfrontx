@@ -19,7 +19,7 @@ export default class SideNav extends React.Component {
           <nav className="cl-effect-21" id="cl-effect-21">
             <a id="tests" className="menu-item" href="/tests"><i className="fa fa-fw fa-file-text-o"></i>tests</a>
           </nav>
-          <p className="menu-footer">Built with <i className="fa fa-heart red"></i> by <a href="http://adityasrinivasan.io">Aditya Srinivasan</a><br/>Source code available at <a href="https://github.com/as577/healthfrontx">GitHub</a><br/>&copy; 2016</p>
+          <p className="menu-footer">Built with <i className="fa fa-heart red"></i> by <a href="http://adityasrinivasan.io">Aditya Srinivasan</a><br/><a href="https://github.com/as577/healthfrontx">Source code available at GitHub</a><br/>&copy; 2016</p>
       </Menu>
       </div>
     );
